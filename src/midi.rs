@@ -21,6 +21,9 @@ pub fn setup_midi_mappings() -> HashMap<u8, Key> {
     mappings.insert(F3, Key::KEY_D);
     mappings.insert(G3, Key::KEY_SPACE);
 
+    mappings.insert(C4, Key::KEY_X);
+    mappings.insert(D4, Key::KEY_Q);
+
     mappings.insert(FS4, Key::KEY_LEFTCTRL);
     // mappings.insert(G4, Key::KEY_E);
     mappings.insert(GS4, Key::KEY_Q);

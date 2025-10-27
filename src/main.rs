@@ -125,6 +125,7 @@ fn create_virtual_keyboard() -> Result<evdev::uinput::VirtualDevice, Box<dyn Err
     keys.insert(Key::KEY_E);
     keys.insert(Key::KEY_R);
     keys.insert(Key::KEY_F);
+    keys.insert(Key::KEY_X);
     keys.insert(Key::KEY_SPACE);
     keys.insert(Key::KEY_LEFTSHIFT);
     keys.insert(Key::KEY_LEFTCTRL);
