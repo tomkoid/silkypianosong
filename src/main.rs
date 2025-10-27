@@ -30,7 +30,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let pressed_notes: Arc<Mutex<HashMap<u8, bool>>> = Arc::new(Mutex::new(HashMap::new()));
 
-    let mut midi_in = MidiInput::new("MIDI to KeyCodeboard")?;
+    let mut midi_in = MidiInput::new("MIDI to Keyboard")?;
     midi_in.ignore(Ignore::None);
 
     // select input port
