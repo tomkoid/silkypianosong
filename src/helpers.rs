@@ -1,10 +1,10 @@
 use std::collections::HashMap;
 
-use evdev::Key;
+use evdev::KeyCode;
 
 use crate::notes::note_to_name;
 
-pub fn print_mappings(mappings: &HashMap<u8, Key>) {
+pub fn print_mappings(mappings: &HashMap<u8, KeyCode>) {
     println!("\nmappings:");
     println!("┌────────────┬──────────────┐");
     println!("│ MIDI Note  │ Keyboard Key │");

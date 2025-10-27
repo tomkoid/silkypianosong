@@ -5,5 +5,5 @@ edition = "2024"
 
 [dependencies]
 midir = "0.10.2"
-evdev = "0.12"
 ctrlc = "3.4"
+evdev = "0.13.2"

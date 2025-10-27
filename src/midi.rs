@@ -4,37 +4,37 @@ use std::{
     io::{Write, stdin, stdout},
 };
 
-use evdev::Key;
+use evdev::KeyCode;
 use midir::MidiInput;
 
 use crate::notes::*;
 
-pub fn setup_midi_mappings() -> HashMap<u8, Key> {
+pub fn setup_midi_mappings() -> HashMap<u8, KeyCode> {
     let mut mappings = HashMap::new();
 
     // WASD controls (gaming layout)
-    mappings.insert(B2, Key::KEY_LEFTCTRL);
-    mappings.insert(C3, Key::KEY_LEFTSHIFT);
-    mappings.insert(D3, Key::KEY_A);
-    mappings.insert(DS3, Key::KEY_W);
-    mappings.insert(E3, Key::KEY_S);
-    mappings.insert(F3, Key::KEY_D);
-    mappings.insert(G3, Key::KEY_SPACE);
+    mappings.insert(B2, KeyCode::KEY_LEFTCTRL);
+    mappings.insert(C3, KeyCode::KEY_LEFTSHIFT);
+    mappings.insert(D3, KeyCode::KEY_A);
+    mappings.insert(DS3, KeyCode::KEY_W);
+    mappings.insert(E3, KeyCode::KEY_S);
+    mappings.insert(F3, KeyCode::KEY_D);
+    mappings.insert(G3, KeyCode::KEY_SPACE);
 
-    mappings.insert(C4, Key::KEY_X);
-    mappings.insert(D4, Key::KEY_Q);
+    mappings.insert(C4, KeyCode::KEY_X);
+    mappings.insert(D4, KeyCode::KEY_Q);
 
-    mappings.insert(FS4, Key::KEY_LEFTCTRL);
-    // mappings.insert(G4, Key::KEY_E);
-    mappings.insert(GS4, Key::KEY_Q);
-    mappings.insert(A4, Key::KEY_R);
-    mappings.insert(AS4, Key::KEY_F);
-    mappings.insert(B4, Key::KEY_TAB);
+    mappings.insert(FS4, KeyCode::KEY_LEFTCTRL);
+    // mappings.insert(G4, KeyCode::KEY_E);
+    mappings.insert(GS4, KeyCode::KEY_Q);
+    mappings.insert(A4, KeyCode::KEY_R);
+    mappings.insert(AS4, KeyCode::KEY_F);
+    mappings.insert(B4, KeyCode::KEY_TAB);
 
-    // mappings.insert(C5, Key::KEY_UP);
-    // mappings.insert(D5, Key::KEY_DOWN);
-    // mappings.insert(E5, Key::KEY_LEFT);
-    // mappings.insert(F5, Key::KEY_RIGHT);
+    // mappings.insert(C5, KeyCode::KEY_UP);
+    // mappings.insert(D5, KeyCode::KEY_DOWN);
+    // mappings.insert(E5, KeyCode::KEY_LEFT);
+    // mappings.insert(F5, KeyCode::KEY_RIGHT);
 
     mappings
 }

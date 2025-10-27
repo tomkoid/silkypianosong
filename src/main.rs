@@ -1,4 +1,4 @@
-use evdev::{AttributeSet, EventType, InputEvent, Key, uinput::VirtualDeviceBuilder};
+use evdev::{AttributeSet, EventType, InputEvent, KeyCode, uinput::VirtualDeviceBuilder};
 use midir::{Ignore, MidiInput};
 use std::collections::HashMap;
 use std::error::Error;
@@ -30,7 +30,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let pressed_notes: Arc<Mutex<HashMap<u8, bool>>> = Arc::new(Mutex::new(HashMap::new()));
 
-    let mut midi_in = MidiInput::new("MIDI to Keyboard")?;
+    let mut midi_in = MidiInput::new("MIDI to KeyCodeboard")?;
     midi_in.ignore(Ignore::None);
 
     // select input port
@@ -79,13 +79,13 @@ fn main() -> Result<(), Box<dyn Error>> {
                     let key_name = format!("{:?}", key).replace("KEY_", "");
                     println!("{} ({}) → {} DOWN", note_to_name(note), note, key_name);
 
-                    let _ = device.emit(&[InputEvent::new(EventType::KEY, key.code(), 1)]);
+                    let _ = device.emit(&[InputEvent::new(1, key.code(), 1)]);
                 } else if is_note_off {
                     pressed.insert(note, false);
                     let key_name = format!("{:?}", key).replace("KEY_", "");
                     println!("{} ({}) → {} UP", note_to_name(note), note, key_name);
 
-                    let _ = device.emit(&[InputEvent::new(EventType::KEY, key.code(), 0)]);
+                    let _ = device.emit(&[InputEvent::new(1, key.code(), 0)]);
                 }
             } else if is_note_on {
                 println!("unmapped note: {} ({})", note_to_name(note), note);
@@ -106,7 +106,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     for (note, is_pressed) in pressed.iter() {
         if *is_pressed && let Some(&key) = mappings.get(note) {
-            let _ = device.emit(&[InputEvent::new(EventType::KEY, key.code(), 0)]);
+            let _ = device.emit(&[InputEvent::new(1, key.code(), 0)]);
         }
     }
 
@@ -114,36 +114,36 @@ fn main() -> Result<(), Box<dyn Error>> {
 }
 
 fn create_virtual_keyboard() -> Result<evdev::uinput::VirtualDevice, Box<dyn Error>> {
-    let mut keys = AttributeSet::<Key>::new();
+    let mut keys = AttributeSet::<KeyCode>::new();
 
     // all the keys we wanna use
-    keys.insert(Key::KEY_W);
-    keys.insert(Key::KEY_A);
-    keys.insert(Key::KEY_S);
-    keys.insert(Key::KEY_D);
-    keys.insert(Key::KEY_Q);
-    keys.insert(Key::KEY_E);
-    keys.insert(Key::KEY_R);
-    keys.insert(Key::KEY_F);
-    keys.insert(Key::KEY_X);
-    keys.insert(Key::KEY_SPACE);
-    keys.insert(Key::KEY_LEFTSHIFT);
-    keys.insert(Key::KEY_LEFTCTRL);
-    keys.insert(Key::KEY_TAB);
-    keys.insert(Key::KEY_1);
-    keys.insert(Key::KEY_2);
-    keys.insert(Key::KEY_3);
-    keys.insert(Key::KEY_4);
-    keys.insert(Key::KEY_5);
-    keys.insert(Key::KEY_UP);
-    keys.insert(Key::KEY_DOWN);
-    keys.insert(Key::KEY_LEFT);
-    keys.insert(Key::KEY_RIGHT);
-    keys.insert(Key::KEY_ENTER);
-    keys.insert(Key::KEY_ESC);
+    keys.insert(KeyCode::KEY_W);
+    keys.insert(KeyCode::KEY_A);
+    keys.insert(KeyCode::KEY_S);
+    keys.insert(KeyCode::KEY_D);
+    keys.insert(KeyCode::KEY_Q);
+    keys.insert(KeyCode::KEY_E);
+    keys.insert(KeyCode::KEY_R);
+    keys.insert(KeyCode::KEY_F);
+    keys.insert(KeyCode::KEY_X);
+    keys.insert(KeyCode::KEY_SPACE);
+    keys.insert(KeyCode::KEY_LEFTSHIFT);
+    keys.insert(KeyCode::KEY_LEFTCTRL);
+    keys.insert(KeyCode::KEY_TAB);
+    keys.insert(KeyCode::KEY_1);
+    keys.insert(KeyCode::KEY_2);
+    keys.insert(KeyCode::KEY_3);
+    keys.insert(KeyCode::KEY_4);
+    keys.insert(KeyCode::KEY_5);
+    keys.insert(KeyCode::KEY_UP);
+    keys.insert(KeyCode::KEY_DOWN);
+    keys.insert(KeyCode::KEY_LEFT);
+    keys.insert(KeyCode::KEY_RIGHT);
+    keys.insert(KeyCode::KEY_ENTER);
+    keys.insert(KeyCode::KEY_ESC);
 
     let device = VirtualDeviceBuilder::new()?
-        .name("MIDI Virtual Keyboard")
+        .name("MIDI Virtual KeyCodeboard")
         .with_keys(&keys)?
         .build()?;
 
