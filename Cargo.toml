@@ -1,0 +1,9 @@
+[package]
+name = "silkypianosong"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+midir = "0.10.2"
+evdev = "0.12"
+ctrlc = "3.4"
